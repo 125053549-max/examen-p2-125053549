@@ -1,0 +1,35 @@
+EXAMEN SEGUNDO PARCIAL - PIPELINE DE DATOS
+Matrícula: 125053549
+
+1. DATASET
+Archivo: ventas_125053549.csv
+Registros: 5,000,000
+
+2. ANALISIS MAPREDUCE
+Análisis: ingreso total por hora (0-23) y categoría.
+Fórmula: cantidad * precio_unitario.
+Agrupaciones obtenidas: 240.
+
+3. COMPARACION DE EJECUCIONES
+Tiempo secuencial: 11.90 segundos.
+Tiempo Hadoop: 20.09 segundos.
+Resultados: coincidencia exacta entre ambos métodos.
+
+4. BASE DE DATOS MYSQL
+Tabla: resultados.
+Registros almacenados: 240.
+
+5. API REST
+Ruta principal: http://localhost:5000/
+Consulta: http://localhost:5000/resultados
+Estado: funcionamiento comprobado.
+
+6. AUTENTICACION SSH
+Usuario: hadoop.
+Método: clave ED25519.
+Prueba: SSH_OK.
+Resultado: autenticación correcta.
+
+7. DOCKER
+Servicios: Hadoop, MySQL y API.
+Configuración Docker Compose: validada.

@@ -1,0 +1,17 @@
+# Entornos virtuales
+env/
+venv/
+
+# Variables de entorno
+.env
+
+# Datos generados
+*.csv
+
+# Python
+__pycache__/
+*.py[cod]
+
+# Archivos temporales y respaldos
+*.save
+*.log

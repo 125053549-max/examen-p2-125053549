@@ -1,0 +1,56 @@
+services:
+  hadoop:
+    build: ./hadoop
+    image: examen-p2-hadoop:latest
+    container_name: examen-hadoop
+    hostname: hadoop
+    volumes:
+      - ./mapreduce:/app/mapreduce
+      - ./ventas_125053549.csv:/app/data/ventas_125053549.csv:ro
+    networks:
+      - examen-net
+
+  mysql:
+    image: mysql:8.0
+    container_name: examen-mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-p${MYSQL_ROOT_PASSWORD}"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+    networks:
+      - examen-net
+
+  api:
+    build: ./api
+    container_name: examen-api
+    ports:
+      - "5000:5000"
+    environment:
+      DB_HOST: ${DB_HOST}
+      DB_NAME: ${DB_NAME}
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
+    volumes:
+      - ./scripts:/app/scripts
+    depends_on:
+      mysql:
+        condition: service_healthy
+    networks:
+      - examen-net
+
+volumes:
+  mysql_data:
+
+networks:
+  examen-net:
+    driver: bridge
